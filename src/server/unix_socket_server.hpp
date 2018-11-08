@@ -29,10 +29,11 @@ class UnixSocketServer
     {
         acceptor_.accept(socket_);
     }
-    void read()
+    std::string read()
     {
         if (asio::read_until(socket_, receive_buff_, '!', error))
         {
+            std::string result;
 
             if (error && error != asio::error::eof)
             {
@@ -44,9 +45,11 @@ class UnixSocketServer
                 std::string dataString = data;
                 std::vector<std::string> splitedResult;
                 boost::algorithm::split(splitedResult, dataString, boost::is_any_of("!"));
-                std::cout << splitedResult[0] << std::endl;
+                //std::cout << splitedResult[0] << std::endl;
+                result = splitedResult[0];
             }
             receive_buff_.consume(receive_buff_.size());
+            return result;
         }
     }
 };
