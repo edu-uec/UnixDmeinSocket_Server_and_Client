@@ -2,6 +2,8 @@
 #define UNIX_SOCKET_SERVER_HPP
 
 #include <boost/asio.hpp>
+#include <boost/algorithm/string/classification.hpp>
+#include <boost/algorithm/string/split.hpp>
 #include <iostream>
 
 namespace asio = boost::asio;
@@ -39,7 +41,10 @@ class UnixSocketServer
             else
             {
                 const char *data = asio::buffer_cast<const char *>(receive_buff_.data());
-                std::cout << data << std::endl;
+                std::string dataString = data;
+                std::vector<std::string> splitedResult;
+                boost::algorithm::split(splitedResult, dataString, boost::is_any_of("!"));
+                std::cout << splitedResult[0] << std::endl;
             }
             receive_buff_.consume(receive_buff_.size());
         }
