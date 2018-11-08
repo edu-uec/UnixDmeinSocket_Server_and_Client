@@ -16,4 +16,3 @@ find_package(Boost REQUIRED COMPONENTS system)
 include_directories(${Boost_INCLUDE_DIRS})
 target_link_libraries(unix_socket_client Boost::system)
 target_link_libraries(unix_socket_server Boost::system)
-
