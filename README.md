@@ -18,7 +18,7 @@ Server and Client implementation for ipc (inter process communication)
 
 ## Run
 
-In `build` dir, in different tab or window of bash.
+In `build` dir, in different tab or window of bash for each.
 
 `./unix_socket_server`
 
