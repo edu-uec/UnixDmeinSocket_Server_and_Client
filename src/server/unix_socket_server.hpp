@@ -4,6 +4,8 @@
 #include <boost/asio.hpp>
 #include <boost/algorithm/string/classification.hpp>
 #include <boost/algorithm/string/split.hpp>
+#include <boost/signals2/signal.hpp>
+#include <boost/bind.hpp>
 #include <iostream>
 
 namespace asio = boost::asio;
@@ -19,6 +21,8 @@ class UnixSocketServer
     boost::system::error_code error;
 
   public:
+    boost::signals2::signal<void(std::string command)> commandArriveEvent;
+
     UnixSocketServer(asio::io_service &io_service)
         : io_service_(io_service),
           socket_(io_service),
@@ -33,7 +37,6 @@ class UnixSocketServer
     {
         if (asio::read_until(socket_, receive_buff_, '!', error))
         {
-
             if (error && error != asio::error::eof)
             {
                 std::cout << "receive failed: " << error.message() << std::endl;
@@ -44,7 +47,8 @@ class UnixSocketServer
                 std::string dataString = data;
                 std::vector<std::string> splitedResult;
                 boost::algorithm::split(splitedResult, dataString, boost::is_any_of("!"));
-                std::cout << splitedResult[0] << std::endl;
+                //std::cout << splitedResult[0] << std::endl;
+                commandArriveEvent(splitedResult[0]);
             }
             receive_buff_.consume(receive_buff_.size());
         }
