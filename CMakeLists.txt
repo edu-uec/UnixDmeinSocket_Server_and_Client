@@ -13,6 +13,7 @@ add_executable(unix_socket_client ${client_src_files})
 add_executable(unix_socket_server ${server_src_files})
 
 find_package(Boost REQUIRED COMPONENTS system)
+find_package (Threads)
 include_directories(${Boost_INCLUDE_DIRS})
 target_link_libraries(unix_socket_client Boost::system)
-target_link_libraries(unix_socket_server Boost::system)
+target_link_libraries(unix_socket_server Boost::system ${CMAKE_THREAD_LIBS_INIT})
