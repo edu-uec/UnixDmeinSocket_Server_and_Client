@@ -44,7 +44,7 @@ The server_main.cpp is much complicated than client one.
 
 It uses `std::thread` to run server on another therad and `boost::signals2` to implement eventhundler for command arrival from edu.
 
-Blow links will be help
+Below links will be help
 
 - std::thread https://cpprefjp.github.io/reference/thread/thread.html
 - boost::signals2 https://boostjp.github.io/tips/signals.html
